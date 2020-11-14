@@ -11,6 +11,7 @@ Manager manager;
 Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
+Mix_Music* Game::backgroundMusic;
 SDL_Event Game::event;
 AssetManager* Game::assets = new AssetManager(&manager);
 
@@ -43,6 +44,12 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
 	{
 		window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+
+		Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
+		//set mp3 file from assets to play
+		backgroundMusic = Mix_LoadMUS("assets/bb-ss.mp3");
+
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
@@ -66,6 +73,8 @@ void Game::init(const char* title, int width, int height, bool fullscreen)
 
 	// terrain sprite sheet, mapscale, tilesize
 	map = new Map("terrain_tiles", 3, 32);
+
+	Mix_PlayMusic(backgroundMusic, 1);
 
 	//ecs implementation
 
@@ -112,8 +121,6 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	
-	
 
 	SDL_Rect playerCol = player.getComponent<ColliderComponent>().collider;
 	Vector2D playerPos = player.getComponent<TransformComponent>().position;
@@ -169,7 +176,6 @@ void Game::render()
 		c->draw();
 	}
 
-
 	for (auto& p : players)
 	{
 		p->draw();
@@ -190,6 +196,8 @@ void Game::clean()
 	delete assets;
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
+	Mix_FreeMusic(backgroundMusic);
+	Mix_CloseAudio();
 	IMG_Quit();
 	TTF_Quit();
 	SDL_Quit();

@@ -2,6 +2,7 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_mixer.h"
 #include <iostream>
 #include <vector>
 
@@ -26,6 +27,7 @@ public:
 	static SDL_Event event;
 	static bool isRunning;
 	static SDL_Rect cameraOffset;
+	static Mix_Music *backgroundMusic;
 
 	static AssetManager* assets;
 	enum groupLabels : std::size_t
