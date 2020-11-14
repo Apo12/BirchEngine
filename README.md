@@ -1,6 +1,8 @@
 # Introduction
-This 2D engine will be produced via an online series from my youtube channel: Let's make games. 
+This 2D engine will be produced via an online series from carlbirch's channel: Let's make games. 
 You can watch and learn the skills required to do this here: https://goo.gl/VERhC5
+I am planning on adding on features to this codebase such as menus, music and other ones either Carl may have 
+mentioned or I come up with.
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
